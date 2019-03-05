@@ -19,8 +19,8 @@ class Renderer {
     this.detail = detail
 
     this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 20000)
-    this.camera.position.y = 200
-    this.camera.position.z = 100
+    this.camera.position.y = 120
+    this.camera.position.z = 80
     this.rotateAroundWorldAxis(this.camera, new THREE.Vector3(1,0,0), -45 * Math.PI / 180)
 
     this.scene = new THREE.Scene()

@@ -1,5 +1,7 @@
+noise.seed(Math.random())
+
 const size = { width: 600, height: 600 }
-const detail = { x: 256, y: 256 }
+const detail = { x: 512, y: 512 }
 
 const heightData = generateHeight(detail.x, detail.y)
 
@@ -17,15 +19,24 @@ setTimeout(() => {
 }, 1000)
 
 function generateHeight(width, height) {
-  const noiseSpread = 0.008
-  const amplitude = 175
   const data = new Float32Array(width * height)
 
   for (let i = 0, len = width * height; i < len; i++) {
     const x = i % width
     const y = Math.floor(i / width)
+    const noiseSpread = 0.008
+    const amplitude = 40
 
-    data[i] = map(noise(x * noiseSpread, y * noiseSpread), 0, 1, 0, amplitude)
+    data[i] = noise.simplex2(x * noiseSpread, y * noiseSpread) * amplitude
+  }
+
+  for (let i = 0, len = width * height; i < len; i++) {
+    const x = i % width
+    const y = Math.floor(i / width)
+    const noiseSpread = 0.05
+    const amplitude = 3
+
+    data[i] += noise.simplex2(x * noiseSpread, y * noiseSpread) * amplitude
   }
 
   return data;
@@ -51,5 +62,7 @@ class Droplet {
     while (this.water > 0) {
       this.water -= 0.02 // evaporation
     }
+
+    
   }
 }
